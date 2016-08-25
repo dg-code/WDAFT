@@ -15,6 +15,10 @@
         <testng.version>6.9.10</testng.version>
         <selenium.version>3.0.0-beta2</selenium.version>
         <overwrite.binaries>false</overwrite.binaries>
+        <browser>firefox</browser>
+        <proxyEnabled>false</proxyEnabled>
+        <proxyHost/>
+        <proxyPort/>
     </properties>
 
     <profiles>
