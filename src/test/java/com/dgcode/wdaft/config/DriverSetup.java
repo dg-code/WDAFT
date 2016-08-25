@@ -8,7 +8,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  * Created by dgjorgievski on 22.08.2016.
  */
 public interface DriverSetup {
-    WebDriver getWebDriververObject(DesiredCapabilities desiredCapabilities);
+    WebDriver getWebDriverObject(DesiredCapabilities desiredCapabilities);
 
     DesiredCapabilities getDesiredCapabilities(Proxy proxySettings);
 }
