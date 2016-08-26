@@ -21,6 +21,8 @@ public class DriverFactory {
 
     private final DriverType defaultDriverType = FIREFOX;
     private final String browser = System.getProperty("browser", defaultDriverType.toString().toUpperCase());
+    private final String operatingSystem = System.getProperty("os.name").toUpperCase();
+    private final String systemArchitecture = System.getProperty("os.arch");
     private final boolean proxyEnabled = Boolean.getBoolean("proxyEnabled");
     private final String proxyHostname = System.getProperty("proxyHost");
     private final Integer proxyPort = Integer.getInteger("proxyPort");
@@ -62,11 +64,11 @@ public class DriverFactory {
     }
 
     private void instantiateWebDriver(DesiredCapabilities desiredCapabilities) throws MalformedURLException {
-//        System.out.println(" ");
-//        System.out.println("Current Operating System: " + operatingSystem);
-//        System.out.println("Current Architecture: " + systemArchitecture);
-//        System.out.println("Current Browser Selection: " + selectedDriverType);
-//        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println("Current Operating System: " + operatingSystem);
+        System.out.println("Current Architecture: " + systemArchitecture);
+        System.out.println("Current Browser Selection: " + selectedDriverType);
+        System.out.println(" ");
 
         webDriver = selectedDriverType.getWebDriverObject(desiredCapabilities);
     }
