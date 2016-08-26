@@ -16,9 +16,6 @@
         <selenium.version>3.0.0-beta2</selenium.version>
         <overwrite.binaries>false</overwrite.binaries>
         <browser>firefox</browser>
-        <proxyEnabled>false</proxyEnabled>
-        <proxyHost/>
-        <proxyPort/>
     </properties>
 
     <profiles>
@@ -55,6 +52,11 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.19.1</version>
                     </plugin>
                 </plugins>
             </build>
