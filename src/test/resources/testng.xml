@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Test Suite" verbose="2" parallel="tests">
+
+    <test name="Test Example">
+        <packages>
+            <package name="com.dgcode.wdaft.tests"/>
+        </packages>
+    </test>
+
+</suite>
