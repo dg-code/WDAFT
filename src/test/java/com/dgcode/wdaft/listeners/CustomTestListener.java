@@ -9,9 +9,6 @@ import java.util.List;
 
 import static com.dgcode.wdaft.TestBase.*;
 
-/**
- * Created by dgjorgievski on 26.08.2016.
- */
 public class CustomTestListener extends TestListenerAdapter {
 
     @Override
