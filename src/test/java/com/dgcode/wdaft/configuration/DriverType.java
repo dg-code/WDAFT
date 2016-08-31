@@ -7,9 +7,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
 
-/**
- * Created by dgjorgievski on 27.08.2016.
- */
 public enum DriverType implements DriverAdapter {
     CHROME {
 
