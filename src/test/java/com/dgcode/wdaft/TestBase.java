@@ -1,21 +1,49 @@
 package com.dgcode.wdaft;
 
-
+import com.dgcode.wdaft.configuration.DriverFactory;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-/**
- * Created by dgjorgievski on 26.08.2016.
- */
 public class TestBase {
 
     private static Map<ITestResult, List<Throwable>> verificationFailuresMap = new HashMap<ITestResult, List<Throwable>>();
+    private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<DriverFactory>());
+    private static ThreadLocal<DriverFactory> driverFactory;
+
+    @BeforeSuite(alwaysRun = true)
+    public static void instantiateDriverObject() {
+        driverFactory = new ThreadLocal<DriverFactory>() {
+            @Override
+            protected DriverFactory initialValue() {
+                DriverFactory driverFactory = new DriverFactory();
+                webDriverThreadPool.add(driverFactory);
+                return driverFactory;
+            }
+        };
+    }
+
+    public static WebDriver getDriver() throws Exception {
+        return driverFactory.get().getDriver();
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public static void clearCookies() throws Exception {
+        getDriver().manage().deleteAllCookies();
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public static void closeDriverObjects() {
+        for (DriverFactory driverFactory : webDriverThreadPool) {
+            driverFactory.quitDriver();
+        }
+    }
 
     public static void assertTrue(boolean condition) {
         Assert.assertTrue(condition);
