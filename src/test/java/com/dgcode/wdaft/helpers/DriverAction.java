@@ -10,9 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.dgcode.wdaft.utils.Verify.Argument.*;
 
-/**
- * Created by dgjorgievski on 28.08.2016.
- */
 public class DriverAction {
     // Maximal time for the driver to wait
     private static final int MAX_WAIT = 1;
