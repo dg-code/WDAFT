@@ -1,12 +1,13 @@
-package com.dgcode.wdaft.utils;
+package com.dgcode.wdaft;
 
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Created by dgjorgievski on 29.08.2016.
+ * Created on August 29, 2016
+ * @author dgcode
  */
-public class Verify {
+public class Utils {
 	public static final int ZERO = 0;
 	
     public static class Argument {

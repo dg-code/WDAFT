@@ -1,4 +1,11 @@
-package com.dgcode.wdaft.configuration;
+package com.dgcode.wdaft;
+
+import static com.dgcode.wdaft.DriverType.CHROME;
+import static com.dgcode.wdaft.DriverType.valueOf;
+import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.Proxy;
@@ -6,12 +13,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import static com.dgcode.wdaft.configuration.DriverType.*;
-import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
-
+/**
+ * Driver Factory for starting and stopping the Web Driver
+ * <br>
+ * <br>
+ * Created on August 29, 2016
+ * @author dgcode
+ */
 public class DriverFactory {
 
     private WebDriver webDriver;
@@ -28,7 +36,7 @@ public class DriverFactory {
     private final String proxyDetails = String.format("%s:%d", proxyHostname, proxyPort);
 
     public WebDriver getDriver() throws Exception {
-        if (null == webDriver) {
+        if (webDriver == null) {
             Proxy proxy = null;
             if (proxyEnabled) {
                 proxy = new Proxy();
@@ -40,12 +48,11 @@ public class DriverFactory {
             DesiredCapabilities desiredCapabilities = selectedDriverType.getDesiredCapabilities(proxy);
             instantiateWebDriver(desiredCapabilities);
         }
-
         return webDriver;
     }
 
     public void quitDriver() {
-        if (null != webDriver) {
+        if (webDriver != null) {
             webDriver.quit();
         }
     }
@@ -74,11 +81,11 @@ public class DriverFactory {
             String desiredBrowserVersion = System.getProperty("desiredBrowserVersion");
             String desiredPlatform = System.getProperty("desiredPlatform");
 
-            if (null != desiredPlatform && !desiredPlatform.isEmpty()) {
+            if (desiredPlatform != null && !desiredPlatform.isEmpty()) {
                 desiredCapabilities.setPlatform(Platform.valueOf(desiredPlatform.toUpperCase()));
             }
 
-            if (null != desiredBrowserVersion && !desiredBrowserVersion.isEmpty()) {
+            if (desiredBrowserVersion != null && !desiredBrowserVersion.isEmpty()) {
                 desiredCapabilities.setVersion(desiredBrowserVersion);
             }
 
@@ -89,4 +96,3 @@ public class DriverFactory {
         webDriver.manage().window().maximize();
     }
 }
-

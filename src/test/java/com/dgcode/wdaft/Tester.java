@@ -1,6 +1,11 @@
 package com.dgcode.wdaft;
 
-import com.dgcode.wdaft.configuration.DriverFactory;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -9,9 +14,14 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
-import java.util.*;
-
-public class TestBase {
+/**
+ * Starting point for executing the tests
+ * <br>
+ * <br>
+ * Created on August 29, 2016
+ * @author dgcode
+ */
+public class Tester {
 
     private static Map<ITestResult, List<Throwable>> verificationFailuresMap = new HashMap<ITestResult, List<Throwable>>();
     private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<DriverFactory>());
@@ -39,7 +49,7 @@ public class TestBase {
     }
 
     @AfterSuite(alwaysRun = true)
-    public static void closeDriverObjects() {
+    public static void closeDriverInstances() {
         for (DriverFactory driverFactory : webDriverThreadPool) {
             driverFactory.quitDriver();
         }
@@ -66,14 +76,6 @@ public class TestBase {
     }
 
     public static void assertEquals(boolean actual, boolean expected, String message) {
-        Assert.assertEquals(actual, expected, message);
-    }
-
-    public static void assertEquals(Object actual, Object expected) {
-        Assert.assertEquals(actual, expected);
-    }
-
-    public static void assertEquals(Object actual, Object expected, String message) {
         Assert.assertEquals(actual, expected, message);
     }
 
@@ -118,22 +120,6 @@ public class TestBase {
     }
 
     public static void verifyEquals(boolean actual, boolean expected) {
-        try {
-            assertEquals(actual, expected);
-        } catch (Throwable e) {
-            addVerificationFailure(e);
-        }
-    }
-
-    public static void verifyEquals(Object actual, Object expected) {
-        try {
-            assertEquals(actual, expected);
-        } catch (Throwable e) {
-            addVerificationFailure(e);
-        }
-    }
-
-    public static void verifyEquals(Object[] actual, Object[] expected) {
         try {
             assertEquals(actual, expected);
         } catch (Throwable e) {

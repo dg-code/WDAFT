@@ -1,16 +1,30 @@
-package com.dgcode.wdaft.listeners;
+package com.dgcode.wdaft;
+
+import static com.dgcode.wdaft.Tester.getVerificationFailures;
+
+import java.util.List;
 
 import org.testng.IInvokedMethod;
+import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.internal.Utils;
 
-import java.util.List;
+/**
+ * A custom test listener that gets invoked before and after a method is invoked by TestNG.
+ * This listener will only be invoked for configuration and test methods.
+ * <br>
+ * <br>
+ * Created on August 29, 2016
+ * @author dgcode
+ */
+public class TestListener implements IInvokedMethodListener {
 
-import static com.dgcode.wdaft.TestBase.*;
-
-public class CustomTestListener extends TestListenerAdapter {
-
+	@Override
+	public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
+		// Implementation not needed with the current version
+	}
+	
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult result) {
 
@@ -41,7 +55,7 @@ public class CustomTestListener extends TestListenerAdapter {
                     for (int i = 0; i < size-1; i++) {
                         failureMessage.append("Failure ").append(i+1).append(" of ").append(size).append(":\n");
                         Throwable t = verificationFailures.get(i);
-                        String fullStackTrace = Utils.stackTrace(t, false)[1];
+                        String fullStackTrace = Utils.longStackTrace(t, false);
                         failureMessage.append(fullStackTrace).append("\n\n");
                     }
 

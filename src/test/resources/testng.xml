@@ -4,7 +4,7 @@
 
     <test name="Test Example">
         <packages>
-            <package name="com.dgcode.wdaft.tests"/>
+            <package name="com.example.tests"/>
         </packages>
     </test>
 
