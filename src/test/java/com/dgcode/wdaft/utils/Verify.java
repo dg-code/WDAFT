@@ -1,15 +1,15 @@
 package com.dgcode.wdaft.utils;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by dgjorgievski on 29.08.2016.
  */
 public class Verify {
+	public static final int ZERO = 0;
+	
     public static class Argument {
-
         public static void isNotNull(Object argument, String argumentName) {
             if (argument == null)
                 throw new IllegalArgumentException(argumentName + " cannot be null.");
@@ -38,15 +38,15 @@ public class Verify {
         public static void isNumericAndNotEmpty(String argument, String argumentName) {
             isNotNullOrEmpty(argument, argumentName);
             if (!StringUtils.isNumeric(argument))
-                throw new IllegalArgumentException(argumentName + " must be a non empty alphanumeric string.");
+                throw new IllegalArgumentException(argumentName + " must be a non empty numeric string.");
         }
 
         public static void isPositive(int argument, String argumentName) {
-            isGreaterThan(0, argument, argumentName);
+            isGreaterThan(ZERO, argument, argumentName);
         }
 
         public static void isPositiveOrZero(int argument, String argumentName) {
-            isGreaterThanOrEqualTo(0, argument, argumentName);
+            isGreaterThanOrEqualTo(ZERO, argument, argumentName);
         }
 
         public static void isGreaterThan(int value, int argument, String argumentName) {
@@ -58,11 +58,15 @@ public class Verify {
             if (argument < value)
                 throw new IllegalArgumentException(argumentName + " must be greater than or equal to " + value + ".");
         }
+        
+        public static void isLessThan(int value, int argument, String argumentName) {
+            if (argument >= value)
+                throw new IllegalArgumentException(argumentName + " must be less than " + value + ".");
+        }
 
         public static void isLessThanOrEqualTo(int value, int argument, String argumentName) {
             if (argument > value)
                 throw new IllegalArgumentException(argumentName + " must be less than or equal to " + value + ".");
         }
-
     }
 }
